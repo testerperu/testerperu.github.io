@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="App">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,6 +8,12 @@
     <link rel="stylesheet" type="text/css" href="libs/metro-4.1.12/css/metro-all.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <title>Miguel E. Quevedo</title>
+
+    <script src="./libs/js/jquery-3.3.1.min.js"></script>
+    <script src="./libs/metro-4.1.12/js/metro.min.js"></script>
+    <script src="./libs/angular.js"></script>
+    <script src="./libs/firebase.js"></script>
+    <script src="./libs/angularfire.min.js"></script>
 </head>
 <body>
 <aside>
@@ -25,25 +31,46 @@
         <!-- Grouping rows -->
         <div class="grid">
             <div class="row p-3" >
-                <div class="cell-3">
+                <div class="cell-12 cell-md-3">
                     <img src="./imgs/profile.jpg" class="rounded thumbnail">
                 </div>
-                <div class="cell-9">
+                <div class="cell-12 cell-md-9">
                     <h3>Hola este es mi portafolio</h3>
                     <p> Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera </p>
                 </div>
             </div>
         </div>
     </header>
+    <hr>
     <section class="container">
+
+        <div class="grid">
+            <div class="row">
+                <div class="cell-3" ng-repeat="item in [0,0,0,0,0,0,0] track by $index">
+                    <div class="project card">
+                        <div class="card-header  img-container">
+                            <img src="imgs/projects/freshveg/logo.png" class="img-fluid">
+                        </div>
+                        <div class="card-content">
+                           <div class="d-flex row flex-justify-end thumbs cell py-1">
+                               <img src="imgs/frameworks/bootstrap.png">
+                           </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="flat-button mif-2x mif-github"></button>
+                            <button class="flat-button mif-2x mif-images"></button>
+                            <button class="flat-button mif-2x mif-import-contacts"></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </section>
 </div>
-
-<script src="./libs/js/jquery-3.3.1.min.js"></script>
-<script src="./libs/metro-4.1.12/js/metro.min.js"></script>
-<script src="./libs/angular.js"></script>
-<script src="./libs/firebase.js"></script>
-<script src="./libs/angularfire.min.js"></script>
+<footer>
+    <script src="./js/app.js"></script>
+</footer>
 </body>
 </html>

@@ -12,3 +12,10 @@ body{
 aside{
     height: 100%;
 }
+
+.project .thumbs img{
+    height: 28px;
+}
+.project .card-header{
+    padding: 0.2rem 1rem ;
+}
