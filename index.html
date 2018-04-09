@@ -5,17 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Miguel E. Quevedo H.</title>
-    <link rel="stylesheet" type="text/css" href="libs/metro-4.1.12/css/metro-all.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/fontawesome-all.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <title>Miguel E. Quevedo</title>
 
     <script src="./libs/js/jquery-3.3.1.min.js"></script>
-    <script src="./libs/metro-4.1.12/js/metro.min.js"></script>
+    <script src="./libs/popper.min.js"></script>
+    <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
     <script src="./libs/angular.js"></script>
     <script src="./libs/firebase.js"></script>
     <script src="./libs/angularfire.min.js"></script>
 </head>
-<body>
+<body ng-controller="AppCtrl as app"><!--
 <aside>
     <ul class="sidenav-simple h-100 sidenav-simple-expand-sm">
         <li>
@@ -25,16 +27,16 @@
             </a>
         </li>
     </ul>
-</aside>
+</aside>-->
 <div class="container">
     <header class="container">
         <!-- Grouping rows -->
         <div class="grid">
             <div class="row p-3" >
-                <div class="cell-12 cell-md-3">
+                <div class="col-12 col-md-3">
                     <img src="./imgs/profile.jpg" class="rounded thumbnail">
                 </div>
-                <div class="cell-12 cell-md-9">
+                <div class="col-12 col-md-9">
                     <h3>Hola este es mi portafolio</h3>
                     <p> Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera </p>
                 </div>
@@ -46,20 +48,26 @@
 
         <div class="grid">
             <div class="row">
-                <div class="cell-3" ng-repeat="item in [0,0,0,0,0,0,0] track by $index">
+                <div class="col-3" ng-repeat="item in projects" >
                     <div class="project card">
-                        <div class="card-header  img-container">
-                            <img src="imgs/projects/freshveg/logo.png" class="img-fluid">
+                        <div class="card-header  img-container" title="{{item.title}}">
+                            <img src="{{item.img}}" class="img-fluid">
                         </div>
-                        <div class="card-content">
-                           <div class="d-flex row flex-justify-end thumbs cell py-1">
-                               <img src="imgs/frameworks/bootstrap.png">
-                           </div>
+                        <div class="card-content container">
+                            <div class="row justify-content-end thumbs">
+                                <a ng-repeat="img in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" href="{{item.link}}"><img class="" src="{{img.img}}" alt="{{img.title}}"></a>
+                            </div>
                         </div>
                         <div class="card-footer">
-                            <button class="flat-button mif-2x mif-github"></button>
-                            <button class="flat-button mif-2x mif-images"></button>
-                            <button class="flat-button mif-2x mif-import-contacts"></button>
+                            <div class="row justify-content-between">
+                                <a class="col" ng-if="item.github" href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
+                                <span ng-if="item.gallery.length > 0" class=" col text-center  " ng-click="$parent.$parent.accion.gallery(item)">
+                                    <i class="far fa-images"></i>
+                                </span>
+                                <span ng-if="item.descrip" class="btn col"  ng-click="$parent.$parent.accion.book(item)">
+                                    <i class="fas fa-book"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,6 +76,59 @@
         </div>
 
     </section>
+</div>
+
+<div class="modal fade " role="dialog" id="galleryDialog" ng-controller="galleryCtrl" >
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row container">
+                    <div class="col-md-10">
+                        <h4 class="modal-title" >{{model.title}}</h4>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+
+                <div class="row" id="thumbnails">
+                    <div class="col-12" ng-repeat="img in model.gallery">
+                        <h5>{{img.title}}</h5>
+                        <img  src="{{img.img}}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " role="dialog" id="bookDialog" ng-controller="bookCtrl" >
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row container">
+                    <div class="col-md-10">
+                        <h4 class="modal-title" >{{model.title}}</h4>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="col-8">
+
+                    </div>
+                    <div class="col-4">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <footer>
     <script src="./js/app.js"></script>

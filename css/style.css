@@ -19,3 +19,23 @@ aside{
 .project .card-header{
     padding: 0.2rem 1rem ;
 }
+.card-header, .card-footer{
+    background-color: white;
+}
+.project .card-footer{
+   min-height: 52px;
+    padding: 0.2rem;
+}
+
+.project .card-footer div > * {
+   margin: auto;
+    font-size: 1.2rem;
+}
+.project .card-footer  i:hover{
+    font-size: 1.5rem;
+}
+
+div#thumbnails > div {
+    text-align: center;
+    margin-bottom: 4rem;
+}
