@@ -12,6 +12,7 @@ body {
   transition: all 0.6s ease;
 
 }
+
 div#page-content-wrapper {
   padding: 0 !important;
 }
@@ -25,7 +26,7 @@ div#page-content-wrapper {
   left: 0;
   width: 0;
   height: 100%;
-  overflow-y: auto;
+  overflow-y: hidden;
   background-color:#000340!important;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -45,7 +46,7 @@ div#page-content-wrapper {
 
 #wrapper.toggled #page-content-wrapper {
   position: absolute;
-  margin-left:-250px;
+  margin-left:-240px;
 }
 
 /* Sidebar Styles */
@@ -97,7 +98,7 @@ div#page-content-wrapper {
   background: none;
 }
 #page-content-wrapper > div{
- /* margin-left: 50px;*/
+ /* margin-left: 40px;*/
 }
 
 @media(min-width:768px) {
@@ -114,12 +115,12 @@ div#page-content-wrapper {
   }
 
   #wrapper.toggled #sidebar-wrapper {
-    width: 50px;
+    width: 40px;
   }
   #page-content-wrapper > div{
-/*    margin-left: 50px;*/
+/*    margin-left: 40px;*/
   }
-  #wrapper.toggled img {
+  #wrapper.toggled li.sidebar-brand  img {
     visibility: hidden;
   }
 
@@ -140,6 +141,12 @@ div#page-content-wrapper {
   #wrapper.toggled #page-content-wrapper {
     position: relative;
     margin-right: 0;
+  }
+  #wrapper.toggled .with-img img{
+    float: right;
+  }
+  #wrapper .with-img img{
+    float: inherit;
   }
 }
 
@@ -171,18 +178,18 @@ div#page-content-wrapper {
   }
 
   #sidebar-wrapper {
-    width: 50px;
+    width: 40px;
   }
 
   #wrapper.toggled #sidebar-wrapper {
     width: 140px;
   }
-  #wrapper.toggled #sidebar-wrapper img {
+  #wrapper.toggled #sidebar-wrapper li.sidebar-brand img {
     visibility: visible;
     margin-right: 0!important;
     width: 138px;
   }
-  #wrapper #sidebar-wrapper img {
+  #wrapper #sidebar-wrapper li.sidebar-brand  img {
     visibility: hidden;
   }
   #wrapper.toggled span {
@@ -217,7 +224,7 @@ div#page-content-wrapper {
     margin-right: 0;
   }
 
-  div#sidebar-wrapper:not(.toggle) img {
+  div#sidebar-wrapper:not(.toggle) li.sidebar-brand img {
     visibility: hidden;
   }
 
