@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Miguel E. Quevedo H.</title>
+    <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../libs/sidebar/sidebar.css">
+    <title>Miguel E. Quevedo</title>
+
+    <script src="../libs/js/jquery-3.3.1.min.js"></script>
+    <script src="../libs/popper.min.js"></script>
+    <script src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../libs/angular.js"></script>
+    <script src="../libs/firebase.js"></script>
+    <script src="../libs/angularfire.min.js"></script>
+        <script src="../libs/sidebar/sidebar.js"></script>
+
+</head>
+<body ng-controller="AppCtrl as app">
+    <section id="wrapper" class="toggled d-none" ng-controller="sidebarCtrl">
+        <aside id="sidebar-wrapper" class="position-absolute">
+            <ul class="sidebar-nav" style="margin-left:0;">
+                <li class="sidebar-brand mb-1" style="height: auto; position: relative;">
+                    <a  style="display: grid;">
+                        <div class="d-flex">
+
+                            <img src="../imgs/profile.jpg" class="img-fluid p-3 mx-auto my-auto">
+
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu-toggle"  id="menu-toggle" title="Menu" >
+                        <i class="fa fa-bars " style="font-size:20px !Important;" aria-hidden="true" aria-hidden="true"></i><span style="margin-left:10px;">Menu</span>
+                    </a>
+                </li>
+                <ul ng-repeat="(k, v) in menus"  >
+                    <li class="item-lv1" data-toggle="collapse" data-target=".items-{{k}}">
+                    <a  title="{{k}}">
+                     <i class="fa fa-home" aria-hidden="true" ></i>  <span style="margin-left:10px;">{{k}}</span>  </a>
+                    </li>
+                    <li ng-repeat="(k2,v2) in v"class="collapse item-lv2 items-{{k}}" >
+                    <a  title="{{v2.title}}">
+                     <i class="fa fa-home" aria-hidden="true" ></i>  <span style="margin-left:10px;">{{v2.title}}</span>  </a>
+                    </li>
+                </ul>
+            
+            </ul>
+        </aside>
+
+    </section>
+<section id="page-content-wrapper" class=" d-none">
+    <div class="container">
+    </div>
+
+</section>
+<section id="login" class="container-fluid d-flex" ng-show="isLogin == 0" >
+    <div class="row m-auto">
+            <div class="col-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group"> 
+                                <label> Correo</label>
+                                    <input class="form-control" name="mail" ng-model="model.correo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group"> 
+                                <label> Clave</label>
+                                    <input class="form-control" type="password" name="clave" ng-model="model.clave">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group"> 
+                                <button class="btn btn-success float-right" ng-click="login()"> Entrar </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+    </div>
+        
+    </div>
+
+</section>
+
+
+
+
+<footer>
+    <script src="./admin.js"></script>
+<script src="../js/sidebar.js"></script>
+
+</footer>
+</body>
+</html>

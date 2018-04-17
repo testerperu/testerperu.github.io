@@ -39,3 +39,12 @@ div#thumbnails > div {
     text-align: center;
     margin-bottom: 4rem;
 }
+
+#sidebar-wrapper{
+    color: white;
+}
+
+.item-lv2 {
+    padding-left: 8px;
+    background-color: #01055d;
+}
