@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/fontawesome-all.min.css">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link rel="stylesheet" type="text/css" href="./libs/sidebar/sidebar.css">
     <title>Miguel E. Quevedo</title>
 
     <script src="./libs/js/jquery-3.3.1.min.js"></script>
@@ -17,135 +16,66 @@
     <script src="./libs/angular.js"></script>
     <script src="./libs/firebase.js"></script>
     <script src="./libs/angularfire.min.js"></script>
-    <script src="./libs/sidebar/sidebar.js"></script>
 </head>
 <body ng-controller="AppCtrl as app" >
-<section id="wrapper" class="toggled" ng-controller="sidebarCtrl">
-    <aside id="sidebar-wrapper" class="position-absolute">
-        <ul class="sidebar-nav" style="margin-left:0;">
-            <li class="sidebar-brand mb-1" style="height: auto; position: relative;">
-                <a  style="display: grid;">
-                    <div class="d-flex">
 
-                        <img src="./imgs/profile.jpg" class="img-fluid p-3 mx-auto my-auto">
+<nav class=" d-block d-lg-none navbar navbar-dark navigation">
 
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="menu-toggle"  id="menu-toggle" title="Menu" >
-                    <i class="fa fa-bars " style="font-size:20px !Important;" aria-hidden="true" aria-hidden="true"></i><span style="margin-left:10px;">Menu</span>
-                </a>
-            </li>
-
-            <ul ng-repeat="(k, v) in menus"  >
-                <li class="item-lv1 with-img" data-toggle="collapse" data-target=".items-{{k}}">
-                    <a  title="{{k}}" style="padding-right: 4px;">
-                        <img src="imgs/frameworks/bootstrap.png" style="height: 32px;">
-                        <span style="margin-left:10px;">{{k}}</span>
-                    </a>
-                </li>
-                <li ng-repeat="(k2,v2) in v"class="collapse item-lv2 items-{{k}}" >
-                    <a  title="{{v2.title}}">
-                        <i class="fa fa-home" aria-hidden="true" ></i>  <span style="margin-left:10px;">{{v2.title}}</span>  </a>
-                </li>
-            </ul>
-
-        </ul>
-    </aside>
-
-</section>
-<section id="page-content-wrapper">
-    <div class="container">
-        <header class="container">
-            <div class="row p-3" >
-                <div class="col-12 col-md-4 d-flex">
-                    <img src="./imgs/profile.jpg" class="rounded thumbnail mx-auto">
-                </div>
-                <div class="col-12 col-md-8">
-                    <h3>Hola este es mi portafolio</h3>
-                    <p> Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera </p>
-                </div>
-            </div>
-        </header>
-        <hr>
-        <section class="container">
-            <div class="row">
-                <div class="col-3" ng-repeat="item in data.projects track by $index" >
-                    <div class="project card">
-                        <div class="card-header  img-container" title="{{item.title}}">
-                            <img src="{{item.img}}" class="img-fluid">
-                        </div>
-                        <div class="card-content container">
-                            <div class="row justify-content-end thumbs">
-                                <a ng-repeat="(key ,item ) in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" href="{{item.link}}">
-
-                                    <img class="" src="{{item.img}}" alt="{{item.title}}">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row justify-content-between">
-                                <a class="col" ng-if="item.github" href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
-                                <span ng-if="item.gallery" class=" col text-center  " ng-click="$parent.$parent.accion.gallery(item)">
-                                    <i class="far fa-images"></i>
-                                </span>
-                                <span ng-if="item.descrip" class="btn col"  ng-click="$parent.$parent.accion.book(item)">
-                                    <i class="fas fa-book"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
+    <div class="row justify-content-between">
+        <div class="col">
+            <button class="navbar-toggler toggleClass" type="button" data-target="#navigation" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="col d-flex justify-content-end nav-links">
+            <a  class="my-auto"   data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{dtp.mail}}"><span>@</span></a>
+            <a target="_blank" href="{{dtp.facebook}}" class="my-auto" ><span><i class="fab fa-facebook-f"></i></span></a>
+            <a target="_blank" href="{{dtp.github}}" class="my-auto" ><span><i class="fab fa-github"></i></span></a>
+            <a target="_blank" href="{{dtp.book}}" class="my-auto" ><span> <i class="fas fa-book"></i></span></a>
+        </div>
     </div>
 
-</section>
-<!--
-<div class="container">
-    <header class="container">
-        &lt;!&ndash; Grouping rows &ndash;&gt;
-        <div class="grid">
-            <div class="row p-3" >
-                <div class="col-12 col-md-3">
-                    <img src="./imgs/profile.jpg" class="rounded thumbnail">
-                </div>
-                <div class="col-12 col-md-9">
-                    <h3>Hola este es mi portafolio</h3>
-                    <p> Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera </p>
-                </div>
-            </div>
-        </div>
-    </header>
-    <hr>
-    <section class="container">
 
-        <div class="grid">
-            <div class="row">
-                <div class="col-3" ng-repeat="item in data.projects track by $index" >
-                    <div class="project card">
-                        <div class="card-header  img-container" title="{{item.title}}">
-                            <img src="{{item.img}}" class="img-fluid">
-                        </div>
-                        <div class="card-content container">
-                            <div class="row justify-content-end thumbs">
-                                <a ng-repeat="(key ,item ) in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" href="{{item.link}}">
 
-                                    <img class="" src="{{item.img}}" alt="{{item.title}}">
+
+</nav>
+<div class="container-fluid">
+
+    <div class="row">
+        <div id="navigation" class="d-lg-block col-lg-3 col-xl-2 navigation  p-0"   ng-controller="sidebarCtrl">
+            <div class="container-fluid">
+                <div id="navigation-img" class="row " style="">
+                    <div class="col-12 d-flex my-2">
+                        <img ng-src="./imgs/profile.jpg" class="img-fluid m-auto">
+                    </div>
+                </div>
+                <hr>
+                <div class="row py-2"  >
+                    <div class="col-12 px-1">
+                        <input type="text" required min="4"  class="form-control form-control-sm rounded text-center" placeholder="¿Buscar?" ng-model="filter.search" ng-change="filter(filter.search)">
+                    </div>
+                </div>
+                <div id="navigation-content"  class="row" style="">
+                    <div class="col-12 p-0" style="margin-bottom: 1rem;">
+                        <div class="container-fluid p-0" >
+
+                            <div class="list-group">
+                                <a ng-repeat="(k, v) in filtersMenus "  style="padding: 0;"  class="list-group-item flex-column align-items-start">
+                                    <div data-toggle="collapse" data-target=".items-{{k}}" class="d-flex w-100 justify-content-between list-group-item-action " style="padding: .75rem 1.25rem">
+                                        <img ng-src="imgs/frameworks/bootstrap.png" style="height: 32px;">
+                                        <span style="margin-left:10px;">{{k}}</span>
+                                        <span class="badge badge-primary badge-pill my-auto">{{objectCount(v)}}</span>
+
+                                    </div>
+                                    <div class="collapse items-{{k}} align-items-start list-group-item-action lvl-2" ng-repeat="(k2,v2) in v " style="border-top: 1px solid rgba(0,0,0,.125); ">
+                                        <div class="d-flex w-100 justify-content-between"  style="padding: .75rem 1.25rem">
+                                            <img ng-src="imgs/frameworks/bootstrap.png" style="height: 32px;">
+                                            <span style="margin-left:10px;">{{v2.title}}</span>
+                                        </div>
+
+                                    </div>
+
                                 </a>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row justify-content-between">
-                                <a class="col" ng-if="item.github" href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
-                                <span ng-if="item.gallery" class=" col text-center  " ng-click="$parent.$parent.accion.gallery(item)">
-                                    <i class="far fa-images"></i>
-                                </span>
-                                <span ng-if="item.descrip" class="btn col"  ng-click="$parent.$parent.accion.book(item)">
-                                    <i class="fas fa-book"></i>
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -153,10 +83,104 @@
 
             </div>
         </div>
+        <div id="content" class=" col-12 col-lg-9 col-xl-10 " >
+            <div class="container-fluid">
+                <div class="row align-content-center header" >
 
-    </section>
+                    <div class="col-12 col-lg-8  py-4">
+                        <h3>Hola este es mi portafolio</h3>
+                        <p> Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera </p>
+                    </div>
+                    <div class="col-12 col-lg-4 d-none d-lg-block" style="overflow: hidden;">
+                        <div class="container-fluid py-4 h-100 my-3 border-left" >
+                            <div class="row">
+                                <div class="col-4 ">
+                                    <label class="float-right"><strong>Correo</strong></label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="float-left">{{dtp.mail}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 ">
+                                    <label class="float-right"><strong>Facebook</strong></label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="float-left"><a href="{{dtp.facebook}}">{{nameLink(dtp.facebook)}}</a></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 ">
+                                    <label class="float-right"><strong>GitHub</strong></label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="float-left"><a href="{{dtp.github}}">{{nameLink(dtp.github)}}</a></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 ">
+                                    <label class="float-right"><strong>Portafolio</strong></label>
+                                </div>
+                                <div class="col-6">
+                                    <label class="float-left"><a href="{{dtp.book}}">{{nameLink(dtp.book)}}</a></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row d-block d-lg-none">
+                    <div class="col-12">
+                        <h3>Proyectos</h3>
+                    </div>
+                </div>
+
+                <hr class="mb-1">
+                <div class="row my-2 px-3 justify-content-end">
+                    <div class="col-lg-6 col-12">
+                        <input type="text" required min="4"  class="form-control form-control-sm text-center" style="border-radius: 14px;" placeholder="¿Buscar?" ng-model="project.search">
+                    </div>
+                </div>
+
+                <div id="projects" class="row mt-4 mt-lg-0"  >
+                    <div class="col-12">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12 col-md-6 col-lg-3 projects-container" ng-repeat="item in data.projects | filter : project.search track by $index" >
+                                    <div class="project card">
+                                        <div class="card-header  img-container" title="{{item.title}}">
+                                            <img ng-src="{{item.img}}" class="img-fluid">
+                                        </div>
+                                        <div class="card-content container">
+                                            <div class="row justify-content-end thumbs">
+                                                <a ng-repeat="(key ,item ) in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" href="{{item.link}}">
+
+                                                    <img class="" ng-src="{{item.img}}" alt="{{item.title}}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row justify-content-between">
+                                                <a class="col" ng-if="item.github" href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
+                                <span ng-if="item.gallery" class=" col text-center  " ng-click="$parent.$parent.accion.gallery(item)">
+                                    <i class="far fa-images"></i>
+                                </span>
+                                <span ng-if="item.descrip" class="btn col"  ng-click="$parent.$parent.accion.book(item)">
+                                    <i class="fas fa-book"></i>
+                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
--->
 
 <div class="modal fade " role="dialog" id="galleryDialog" ng-controller="galleryCtrl" >
     <div class="modal-dialog modal-lg" >
@@ -227,7 +251,7 @@
                 <div  class="container-fluid">
                     <div class="row " >
                         <div ng-repeat="item in model.libs" class="col-md-4 col-12 d-flex "  style="height: 48px;">
-                            <img src="{{item.img}}" class="h-100" alt="{{item.title}}" title="{{item.cats}}">
+                            <img ng-src="{{item.img}}" class="h-100" alt="{{item.title}}" title="{{item.cats}}">
                             <span class="my-auto ml-0" title="{{item.cats}}">{{item.title}}</span>
                         </div>
                     </div>
@@ -239,6 +263,8 @@
 <footer>
     <script src="./js/app.js"></script>
     <script src="./js/sidebar.js"></script>
+    <script src="./js/index.js"></script>
+
 </footer>
 </body>
 </html>
