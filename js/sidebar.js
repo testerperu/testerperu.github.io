@@ -68,33 +68,3 @@ app.controller('sidebarCtrl',['$scope','projects','tools',function($scope,projec
         }
     }
 }]);
-app.filter('tectFilter',function($timeout){
-    function filter (org,text){
-        if(!text){
-            return org;
-        }
-        var data = angular.copy(org);
-        angular.forEach(data,function(v,k){
-            data[k].$show = true;
-            if(!k.toLowerCase().startsWith(text.toLowerCase())){
-                angular.forEach(v,function(v2,k2){
-
-                    if(k2 != '$show' && !(k2.startsWith(text.toLowerCase()) ||
-                            v2.title.toLowerCase().startsWith(text.toLowerCase())||
-                            v2.title.toLowerCase().indexOf(text.toLowerCase()) != -1
-                        ) ){
-                        // delete data[k][k2];
-                    }
-
-                    if(Object.keys(data[k]).length == 0){
-
-                        // delete data[k];
-                    }
-                });
-            }
-        });
-        return data;
-    }
-    filter.$stateful = true;
-    return filter;
-});

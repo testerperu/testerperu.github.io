@@ -115,6 +115,11 @@ app.service('tools',[function(){
     var storage = {
         bootstrap:{
             title:'Bootstrap',
+            descrip:"Se require la realización de una pagina web que permite a los clientes la realizacion de pedidos, la misma " +
+            "debe mostrar de los diferentes productos (frutas y verduras ) su precio, descripcion y las ofertas que estan pautadas " +
+            "para determinadas fechas debe realizar el cargo de flete segun destino y imprirmir un comprobante al momento de realizar la comprar, " +
+            "a su vez se debe tomar en cuenta la emision de cupones a diferentes clientes como incentivo para comprar estos ejercen un descuento sobre" +
+            " el total de la la factura.",
             img:'imgs/frameworks/bootstrap.png',
             link:"",
             cat:{'FrontEnd':true,'Javascript':true,'Librerias':true,'Framework':true, '_bases':false}
@@ -122,6 +127,11 @@ app.service('tools',[function(){
         codeigniter:{
             title:'Codeigniter',
             img:'imgs/frameworks/bootstrap.png',
+            descrip:"Se require la realización de una pagina web que permite a los clientes la realizacion de pedidos, la misma " +
+            "debe mostrar de los diferentes productos (frutas y verduras ) su precio, descripcion y las ofertas que estan pautadas " +
+            "para determinadas fechas debe realizar el cargo de flete segun destino y imprirmir un comprobante al momento de realizar la comprar, " +
+            "a su vez se debe tomar en cuenta la emision de cupones a diferentes clientes como incentivo para comprar estos ejercen un descuento sobre" +
+            " el total de la la factura.",
             link:"",
             cat:{'BackendEnd':true,'Php':true,'Framework':true}
         }
@@ -145,36 +155,22 @@ app.service('tools',[function(){
             });
             return result;
 
-        },
-        getTree:function(array){
-            var tree ={};
-            angular.forEach(array,function(v,k){
-                if(k in storage){
-                    angular.forEach(storage[k].cat,function(v2,k2){
-                        if(v2){
-                            if(!(k2 in tree)){
-                                tree[k2] ={};
-                                console.log(tree);
-                            }
-                            tree[k2][k] = storage[k];
-
-                        }
-
-                    });
-                }
-            });
-            return tree;
         }
 
     }
 }]);
 
-app.controller('AppCtrl',['$scope','$firebaseObject','projects','tools',function($scope,$firebaseObject, projects,tools){
-    // var ref = new Firebase("https://leugin-io.firebaseio.com/projects");
+app.controller('AppCtrl',['$scope','$firebaseArray','storage','projects','tools',function($scope,$firebaseArray, storage,projects,tools){
+    var ref = new Firebase("https://leugin-io.firebaseio.com/projects");
 
-    // var syncObject = $firebaseObject(ref);
-    //  console.log(syncObject);
+     var syncObject = $firebaseArray(ref);
 
+     syncObject.$loaded().then(function(data){
+        console.log("cargado",data);
+        var copy = angular.copy(syncObject);
+     console.log(syncObject, copy);
+     })
+     
     $scope.data = {
         projects:projects.get()
     };
@@ -209,6 +205,8 @@ app.controller('galleryCtrl',['$scope',function($scope){
 
     }
 }]);
+
+
 app.controller('bookCtrl',['$scope','tools',function($scope,tools){
 
     $scope.$parent.accion.book= function(data){
@@ -230,4 +228,34 @@ app.controller('bookCtrl',['$scope','tools',function($scope,tools){
         $('#bookDialog').modal('show');
 
     };
+}]);
+
+
+app.controller('tectCtrl',['$scope','tools','projects',function($scope,tools,projects){
+    $scope.template='template.html';
+    $scope.setTemplate=function(url){
+        $scope.template = url +".html";
+    }
+    $scope.$parent.accion.tect= function(data,key){
+        console.log(data,key);
+        $scope.model = data;
+        $scope.tecnolgi = data;
+        $scope.projects = [];
+        $scope.setTemplate('templates/tecnologia');
+        angular.forEach(projects.get(),function(v,k){
+            if(key in v.tools ){
+                $scope.projects.push(v);
+            }
+        });
+        $('#tectDialog').modal('show');
+
+    };
+    $scope.viewProject = function(model){
+        $scope.model = model;
+        $scope.setTemplate('templates/project')
+    }
+    $scope.back= function(){
+        $scope.model = angular.copy($scope.tecnolgi)
+        $scope.setTemplate('templates/tecnologia');
+    }
 }]);

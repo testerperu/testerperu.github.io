@@ -52,7 +52,7 @@
                 <hr>
                 <div class="row py-2"  >
                     <div class="col-12 px-1">
-                        <input type="text" required min="4"  class="form-control form-control-sm rounded text-center" placeholder="¿Buscar?" ng-model="filter.search" ng-change="filter(filter.search)">
+                        <input type="text"   class="form-control form-control-sm rounded text-center" placeholder="¿Buscar?" ng-model="filter.search" ng-change="filter(filter.search)">
                     </div>
                 </div>
                 <div id="navigation-content"  class="row" style="">
@@ -67,8 +67,8 @@
                                         <span class="badge badge-primary badge-pill my-auto">{{objectCount(v)}}</span>
 
                                     </div>
-                                    <div class="collapse items-{{k}} align-items-start list-group-item-action lvl-2" ng-repeat="(k2,v2) in v " style="border-top: 1px solid rgba(0,0,0,.125); ">
-                                        <div class="d-flex w-100 justify-content-between"  style="padding: .75rem 1.25rem">
+                                    <div class="collapse items-{{k}} align-items-start list-group-item-action lvl-2" ng-repeat="(k2,v2) in v " style="border-top: 1px solid rgba(0,0,0,.125); " ng->
+                                        <div class="d-flex w-100 justify-content-between"  style="padding: .75rem 1.25rem" ng-click="$parent.$parent.$parent.accion.tect(v2,k2)">
                                             <img ng-src="imgs/frameworks/bootstrap.png" style="height: 32px;">
                                             <span style="margin-left:10px;">{{v2.title}}</span>
                                         </div>
@@ -138,7 +138,7 @@
                 <hr class="mb-1">
                 <div class="row my-2 px-3 justify-content-end">
                     <div class="col-lg-6 col-12">
-                        <input type="text" required min="4"  class="form-control form-control-sm text-center" style="border-radius: 14px;" placeholder="¿Buscar?" ng-model="project.search">
+                        <input type="text"  class="form-control form-control-sm text-center" style="border-radius: 14px;" placeholder="¿Buscar?" ng-model="project.search">
                     </div>
                 </div>
 
@@ -260,9 +260,34 @@
         </div>
     </div>
 </div>
+<div class="modal fade " role="dialog" id="tectDialog" ng-controller="tectCtrl" >
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container d-inline-flex p-0">
+                    <div class="px-2">
+                        <img ng-src="{{model.img}}" class="img-fluid" style="height: 42px;">
+                    </div>
+                    <div class="">
+                        <h4 class="modal-title" >{{model.title}}</h4>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+            </div>
+
+            <div class="modal-body container">
+                <div ng-include="template"></div>
+                <div class="row justify-content-end " ng-if="template != 'templates/tecnologia.html'">
+                    <div class="col-5"><button class="btn btn-info float-lg-right" ng-click="back()">Atras</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <footer>
     <script src="./js/app.js"></script>
     <script src="./js/sidebar.js"></script>
+    <script src="./js/storage.js"></script>
     <script src="./js/index.js"></script>
 
 </footer>
