@@ -30,9 +30,9 @@
         </div>
         <div class="col d-flex justify-content-end nav-links">
             <a  class="my-auto"   data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{dtp.mail}}"><span>@</span></a>
-            <a target="_blank" href="{{dtp.facebook}}" class="my-auto" ><span><i class="fab fa-facebook-f"></i></span></a>
-            <a target="_blank" href="{{dtp.github}}" class="my-auto" ><span><i class="fab fa-github"></i></span></a>
-            <a target="_blank" href="{{dtp.book}}" class="my-auto" ><span> <i class="fas fa-book"></i></span></a>
+            <a target="_blank" ng-href="{{data.dtp.facebook}}" class="my-auto" ><span><i class="fab fa-facebook-f"></i></span></a>
+            <a target="_blank" ng-href="{{data.dtp.github}}" class="my-auto" ><span><i class="fab fa-github"></i></span></a>
+            <a target="_blank" ng-href="{{data.dtp.book}}" class="my-auto" ><span> <i class="fas fa-book"></i></span></a>
         </div>
     </div>
 
@@ -99,7 +99,7 @@
                                     <label class="float-right"><strong>Correo</strong></label>
                                 </div>
                                 <div class="col-6">
-                                    <label class="float-left">{{dtp.mail}}</label>
+                                    <label class="float-left">{{data.dtp.mail}}</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -107,7 +107,7 @@
                                     <label class="float-right"><strong>Facebook</strong></label>
                                 </div>
                                 <div class="col-6">
-                                    <label class="float-left"><a href="{{dtp.facebook}}">{{nameLink(dtp.facebook)}}</a></label>
+                                    <label class="float-left"><a ng-href="{{data.dtp.facebook}}">{{nameLink(data.dtp.facebook)}}</a></label>
                                 </div>
                             </div>
                             <div class="row">
@@ -115,7 +115,7 @@
                                     <label class="float-right"><strong>GitHub</strong></label>
                                 </div>
                                 <div class="col-6">
-                                    <label class="float-left"><a href="{{dtp.github}}">{{nameLink(dtp.github)}}</a></label>
+                                    <label class="float-left"><a ng-href="{{data.dtp.github}}">{{nameLink(data.dtp.github)}}</a></label>
                                 </div>
                             </div>
                             <div class="row">
@@ -123,7 +123,7 @@
                                     <label class="float-right"><strong>Portafolio</strong></label>
                                 </div>
                                 <div class="col-6">
-                                    <label class="float-left"><a href="{{dtp.book}}">{{nameLink(dtp.book)}}</a></label>
+                                    <label class="float-left"><a ng-href="{{data.dtp.book}}">{{nameLink(data.dtp.book)}}</a></label>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="card-content container">
                                             <div class="row justify-content-end thumbs">
-                                                <a ng-repeat="(key ,item ) in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" href="{{item.link}}">
+                                                <a ng-repeat="(key ,item ) in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" ng-href="{{item.link}}">
 
                                                     <img class="" ng-src="{{item.img}}" alt="{{item.title}}">
                                                 </a>
@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="row justify-content-between">
-                                                <a class="col" ng-if="item.github" href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
+                                                <a class="col" ng-if="item.github" ng-href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
                                 <span ng-if="item.gallery" class=" col text-center  " ng-click="$parent.$parent.accion.gallery(item)">
                                     <i class="far fa-images"></i>
                                 </span>
