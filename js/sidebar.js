@@ -27,6 +27,7 @@ app.controller('sidebarCtrl',['$scope','storage',function($scope,storage){
         });
         angular.forEach(inUse,function(v,k){
             var data = $scope.get_toolt(v);
+            console.log('vasd',data);
             if(data){
                 angular.forEach(data.cat,function(v2,k2){
                     if(v2){
