@@ -1,11 +1,19 @@
-app.controller('sidebarCtrl',['$scope','projects','tools',function($scope,projects,tools){
+app.controller('sidebarCtrl',['$scope','storage',function($scope,storage){
 
+    angular.extend($scope,storage);
     $scope.data ={
 
-    }
-    init(projects,tools);
+    };
+    var watch = $scope.$watch(function () {
+        return storage.isLoad;
+    }, function (newVal, oldVal) {
+        if(!oldVal && newVal){
+            init(storage.data.projects,storage.data.tools);
+            watch();
+        }
+    });
     function init(proje,tools){
-        var projects = proje.get();
+        var projects = proje;
         var inUse = [];
         var tec ={};
         angular.forEach(projects,function(v,k){
@@ -18,7 +26,7 @@ app.controller('sidebarCtrl',['$scope','projects','tools',function($scope,projec
             }
         });
         angular.forEach(inUse,function(v,k){
-            var data = tools.get(v);
+            var data = $scope.get_toolt(v);
             if(data){
                 angular.forEach(data.cat,function(v2,k2){
                     if(v2){
@@ -34,6 +42,9 @@ app.controller('sidebarCtrl',['$scope','projects','tools',function($scope,projec
         $scope.filtersMenus = tec;
 
     }
+    $scope.get_toolt = function(key){
+        return storage.data.tools[key];
+    };
 
     $scope.filter = function(text){
         if(text){

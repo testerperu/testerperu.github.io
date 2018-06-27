@@ -1,38 +1,38 @@
 
 var app = angular.module('App');
-app.service('storage',['$firebaseArray','firebaseLoader',function($firebaseArray,firebaseLoader){
-		this.data =[
-			new firebaseLoader('https://leugin-io.firebaseio.com/projects')
-		,
-			new firebaseLoader('https://leugin-io.firebaseio.com/tools')
-		];
-	this.load = function(){
-		var _selt = this;
-		angular.forEach(_selt.data,function(v,k){
-			v.load();
-		});
-	}
-	this.load();
-	}]);
+app.service('storage',['$http',function($http){
+    this.data ={};
+    this.isLoad = false;
+    this.load = function(){
+        var _selt = this;
+        $http.get('http://ozaveynq.lucusvirtual.es/api_leugin/data').then(function (data) {
+            console.log(data);
+            angular.extend(_selt.data, data.data.data);
+            _selt.isLoad = true;
+        });
+    }
+    this.load();
+    return this;
+}]);
 
 app.factory('firebaseLoader',function($firebaseArray){
 
-	function Model (url){
-		this.data = [];
-		this.state = 'init';
-		this.url = url;
-		var ref = new Firebase(url);
+    function Model (url){
+        this.data = [];
+        this.state = 'init';
+        this.url = url;
+        var ref = new Firebase(url);
 
-		this.load = function(){
-		var _selt = this;
-			this.state= 'loading';
-     		var syncObject = $firebaseArray(ref);
-     		syncObject.$loaded().then(function(data){
-				_selt.data = data;
-				this.state= 'load';
-     		});
-		}
-	}
+        this.load = function(){
+            var _selt = this;
+            this.state= 'loading';
+            var syncObject = $firebaseArray(ref);
+            syncObject.$loaded().then(function(data){
+                _selt.data = data;
+                this.state= 'load';
+            });
+        }
+    }
 
-	return Model;
+    return Model;
 });

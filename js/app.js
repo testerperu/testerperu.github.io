@@ -6,106 +6,11 @@
 
 var app = angular.module('App',['firebase']);
 
-app.service('projects',['$firebaseObject',function($firebaseObject){
-
-    var storage = [
-        {
-
-
-            title:'FreshVeg',
-            date:'03/2018',
-            img:'imgs/projects/freshveg/logo.png',
-            status:'Proceso',
-            bases:{'bootstrap':true},
-            gallery:{
-                'cesta': {title:'Cesta',img:'imgs/projects/freshveg/cesta.png'},
-                'ingresar':{title:'Ingresar',img:'imgs/projects/freshveg/ingresar.png'},
-                'inicio':{title:'Inicio',img:'imgs/projects/freshveg/inicio.png'},
-                'mi_cuenta':{title:'Mi cuenta',img:'imgs/projects/freshveg/mi_cuenta.png'}
-            },
-            link:"",
-            descrip:"Se require la realización de una pagina web que permite a los clientes la realizacion de pedidos, la misma " +
-            "debe mostrar de los diferentes productos (frutas y verduras ) su precio, descripcion y las ofertas que estan pautadas " +
-            "para determinadas fechas debe realizar el cargo de flete segun destino y imprirmir un comprobante al momento de realizar la comprar, " +
-            "a su vez se debe tomar en cuenta la emision de cupones a diferentes clientes como incentivo para comprar estos ejercen un descuento sobre" +
-            " el total de la la factura.",
-            tools:{'bootstrap':true,'codeigniter':true}
-        },
-        {
-
-
-            title:'FreshVeg',
-            date:'03/2018',
-            img:'imgs/projects/freshveg/logo.png',
-            status:'Proceso',
-            bases:{'bootstrap':true},
-            gallery:{
-                'cesta': {title:'Cesta',img:'imgs/projects/freshveg/cesta.png'},
-                'ingresar':{title:'Ingresar',img:'imgs/projects/freshveg/ingresar.png'},
-                'inicio':{title:'Inicio',img:'imgs/projects/freshveg/inicio.png'},
-                'mi_cuenta':{title:'Mi cuenta',img:'imgs/projects/freshveg/mi_cuenta.png'}
-            },
-            link:"",
-            descrip:"Se require la realización de una pagina web que permite a los clientes la realizacion de pedidos, la misma " +
-            "debe mostrar de los diferentes productos (frutas y verduras ) su precio, descripcion y las ofertas que estan pautadas " +
-            "para determinadas fechas debe realizar el cargo de flete segun destino y imprirmir un comprobante al momento de realizar la comprar, " +
-            "a su vez se debe tomar en cuenta la emision de cupones a diferentes clientes como incentivo para comprar estos ejercen un descuento sobre" +
-            " el total de la la factura.",
-            tools:{'bootstrap':true,'codeigniter':true}
-        },
-        {
-
-
-            title:'FreshVeg',
-            date:'03/2018',
-            img:'imgs/projects/freshveg/logo.png',
-            status:'Proceso',
-            bases:{'bootstrap':true},
-            gallery:{
-                'cesta': {title:'Cesta',img:'imgs/projects/freshveg/cesta.png'},
-                'ingresar':{title:'Ingresar',img:'imgs/projects/freshveg/ingresar.png'},
-                'inicio':{title:'Inicio',img:'imgs/projects/freshveg/inicio.png'},
-                'mi_cuenta':{title:'Mi cuenta',img:'imgs/projects/freshveg/mi_cuenta.png'}
-            },
-            link:"",
-            descrip:"Se require la realización de una pagina web que permite a los clientes la realizacion de pedidos, la misma " +
-            "debe mostrar de los diferentes productos (frutas y verduras ) su precio, descripcion y las ofertas que estan pautadas " +
-            "para determinadas fechas debe realizar el cargo de flete segun destino y imprirmir un comprobante al momento de realizar la comprar, " +
-            "a su vez se debe tomar en cuenta la emision de cupones a diferentes clientes como incentivo para comprar estos ejercen un descuento sobre" +
-            " el total de la la factura.",
-            tools:{'bootstrap':true,'codeigniter':true}
-        },
-        {
-
-
-            title:'FreshVeg',
-            date:'03/2018',
-            img:'imgs/projects/freshveg/logo.png',
-            status:'Proceso',
-            bases:{'bootstrap':true},
-            gallery:{
-                'cesta': {title:'Cesta',img:'imgs/projects/freshveg/cesta.png'},
-                'ingresar':{title:'Ingresar',img:'imgs/projects/freshveg/ingresar.png'},
-                'inicio':{title:'Inicio',img:'imgs/projects/freshveg/inicio.png'},
-                'mi_cuenta':{title:'Mi cuenta',img:'imgs/projects/freshveg/mi_cuenta.png'}
-            },
-            link:"",
-            descrip:"Se require la realización de una pagina web que permite a los clientes la realizacion de pedidos, la misma " +
-            "debe mostrar de los diferentes productos (frutas y verduras ) su precio, descripcion y las ofertas que estan pautadas " +
-            "para determinadas fechas debe realizar el cargo de flete segun destino y imprirmir un comprobante al momento de realizar la comprar, " +
-            "a su vez se debe tomar en cuenta la emision de cupones a diferentes clientes como incentivo para comprar estos ejercen un descuento sobre" +
-            " el total de la la factura.",
-            tools:{'bootstrap':true,'codeigniter':true}
-        }
-    ];
+app.service('projects',['$firebaseObject',function(storage){
 
     return {
         get:function(){
             return storage;
-        },
-        set:function(data){
-            storage = data;
-            return storage
         }
     }
 }]);
@@ -160,38 +65,22 @@ app.service('tools',[function(){
     }
 }]);
 
-app.controller('AppCtrl',['$scope','$firebaseArray','storage','projects','tools',function($scope,$firebaseArray, storage,projects,tools){
-    var ref = new Firebase("https://leugin-io.firebaseio.com/projects");
-
-     var syncObject = $firebaseArray(ref);
-
-     syncObject.$loaded().then(function(data){
-        console.log("cargado",data);
-        var copy = angular.copy(syncObject);
-     console.log(syncObject, copy);
-     })
-     
-    $scope.data = {
-        projects:projects.get()
-    };
-    //syncObject.$bindTo($scope, "projects");
+app.controller('AppCtrl',['$scope',"$http",'$firebaseArray','storage','projects','tools',function($scope,$http, $firebaseArray, storage,projects,tools){
 
     $scope.accion={};
     $scope.accion.tools = tools;
-    $scope.dtp ={
-        mail:'meqh1992@gmail.com',
-        facebook:'https://web.facebook.com/LeuginOdraudeBook',
-        github:'https://github.com/leugin',
-        book:'https://leugin.github.io'
-    };
     $scope.nameLink = function(link){
-        var last = link.lastIndexOf('/');
-        return (last != -1) ? link.substr(last + 1) : link;
-    }
+        if(link){
+            var last = link.lastIndexOf('/');
+            return (last != -1) ? link.substr(last + 1) : link;
+        }
+
+    };
 
     $scope.objectCount = function(obj){
         return Object.keys(obj).length;
     }
+    angular.extend($scope,storage);
 
 }]);
 
