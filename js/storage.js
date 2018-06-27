@@ -5,7 +5,7 @@ app.service('storage',['$http',function($http){
     this.isLoad = false;
     this.load = function(){
         var _selt = this;
-        $http.get('http://ozaveynq.lucusvirtual.es/api_leugin/data').then(function (data) {
+        $http.get('https://ozaveynq.lucusvirtual.es/api_leugin/data').then(function (data) {
             console.log(data);
             angular.extend(_selt.data, data.data.data);
             _selt.isLoad = true;
