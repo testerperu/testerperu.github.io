@@ -1,309 +1,360 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="App">
+<html lang="es">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0e2329">
-    <meta name="msapplication-TileColor" content="#828282">
-    <meta name="theme-color" content="#ff0000">
-    <meta property="og:image" content="/og-image.jpg">
-    <meta property="og:image:width" content="173">
-    <meta property="og:image:height" content="173">
-    <meta property="og:title" content="Miguel E. Quevedo H.">
-    <meta property="og:description" content="Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera, como desarrollador web.">
-    <meta property="og:url" content="https://leugin.github.io/">
-    <title>Miguel E. Quevedo H.</title>
-    <link rel="stylesheet" type="text/css" href="./libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/fontawesome-all.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link rel="stylesheet" type="text/css" href="./css/angular-csp.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Miguel E. Quevedo</title>
+    <link rel="stylesheet" href="./assets/libs/angular-material/angular-material.css">
+    <link rel="stylesheet" href="./assets/libs/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 
-    <script src="./libs/js/jquery-3.3.1.min.js"></script>
-    <script src="./libs/popper.min.js"></script>
-    <script src="./libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./libs/angular.js"></script>
-    <script src="./libs/firebase.js"></script>
-    <script src="./libs/angularfire.min.js"></script>
+    <script src="./assets/libs/jquery.min.js"></script>
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="./assets/libs/angular/angular.min.js"></script>
+    <script src="./assets/libs/angular-animate/angular-animate.min.js"></script>
+    <script src="./assets/libs/angular-aria/angular-aria.min.js"></script>
+    <script src="./assets/libs/angular-messages/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="./assets/libs/angular-material/angular-material.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/services/storage.js"></script>
+    <script src="./assets/js/controllers/appCtrl.js"></script>
+    <script src="./assets/js/controllers/menuBarCtrl.js"></script>
+    <script src="./assets/js/controllers/mainTabsCtrl.js"></script>
+    <script src="./assets/js/controllers/projectsCtrl.js"></script>
+    <script src="./assets/js/controllers/tecnologiesCtrl.js"></script>
+    <script src="./assets/js/controllers/profileCtrl.js"></script>
 </head>
-<body ng-controller="AppCtrl as app"  ng-cloak>
-
-<nav class=" d-block d-lg-none navbar navbar-dark navigation">
-
-    <div class="row justify-content-between">
-        <div class="col">
-            <button class="navbar-toggler toggleClass" type="button" data-target="#navigation" >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="col d-flex justify-content-end nav-links">
-            <a  class="my-auto"   data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{dtp.mail}}"><span>@</span></a>
-            <a target="_blank" ng-href="{{data.dtp.facebook}}" class="my-auto" ><span><i class="fab fa-facebook-f"></i></span></a>
-            <a target="_blank" ng-href="{{data.dtp.github}}" class="my-auto" ><span><i class="fab fa-github"></i></span></a>
-            <a target="_blank" ng-href="{{data.dtp.book}}" class="my-auto" ><span> <i class="fas fa-book"></i></span></a>
-        </div>
-    </div>
+<body ng-app="app" ng-cloak >
+<div layout="row" flex ng-controller="appCtrl">
+    <div flex layout="column">
+        <md-toolbar md-scroll-shrink ng-if="true" ng-controller="menuBarCtrl">
+            <div class="md-toolbar-tools">
 
 
-
-
-</nav>
-<div class="container-fluid">
-
-    <div class="row">
-        <div id="navigation" class="d-lg-block col-lg-3 col-xl-2 navigation  p-0"   ng-controller="sidebarCtrl">
-            <div class="container-fluid">
-                <div id="navigation-img" class="row " style="">
-                    <div class="col-12 d-flex my-2">
-                        <img ng-src="./imgs/profile.jpg" class="img-fluid m-auto">
-                    </div>
-                </div>
-                <hr>
-                <div class="row py-2"  >
-                    <div class="col-12 px-1">
-                        <input type="text"   class="form-control form-control-sm rounded text-center" placeholder="¿Buscar?" ng-model="filter.search" ng-change="filter(filter.search)">
-                    </div>
-                </div>
-                <div id="navigation-content"  class="row" style="">
-                    <div class="col-12 p-0" style="margin-bottom: 1rem;">
-                        <div class="container-fluid p-0" >
-
-                            <div class="list-group">
-                                <a ng-repeat="(k, v) in filtersMenus "  style="padding: 0;"  class="list-group-item flex-column align-items-start">
-                                    <div data-toggle="collapse" data-target=".items-{{k}}" class="d-flex w-100 justify-content-between list-group-item-action " style="padding: .75rem 1.25rem">
-                                        <img ng-src="imgs/frameworks/bootstrap.png" style="height: 32px;">
-                                        <span style="margin-left:10px;">{{k}}</span>
-                                        <span class="badge badge-primary badge-pill my-auto">{{objectCount(v)}}</span>
-
-                                    </div>
-                                    <div class="collapse items-{{k}} align-items-start list-group-item-action lvl-2" ng-repeat="(k2,v2) in v " style="border-top: 1px solid rgba(0,0,0,.125); " ng->
-                                        <div class="d-flex w-100 justify-content-between"  style="padding: .75rem 1.25rem" ng-click="$parent.$parent.$parent.accion.tect(v2,k2)">
-                                            <img ng-src="imgs/frameworks/bootstrap.png" style="height: 32px;">
-                                            <span style="margin-left:10px;">{{v2.title}}</span>
-                                        </div>
-
-                                    </div>
-
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <h3>
+                    <span>Bienvenido</span>
+                </h3>
             </div>
-        </div>
-        <div id="content" class=" col-12 col-lg-9 col-xl-10 " >
-            <div class="container-fluid">
-                <div class="row align-content-center header" >
+        </md-toolbar>
+        <div  ng-controller="mainTabsCtrl" flex>
+            <md-tabs md-selected="data.selectedIndex" md-align-tabs="top" flex >
+                <md-tab id="tab1" flex>
+                    <md-tab-label>Proyectos</md-tab-label>
+                    <md-tab-body flex>
+                        <md-content flex ng-controller="projectsCtrl">
+                            <div  layout="row" layout-align="end center" >
 
-                    <div class="col-12 col-lg-8  py-4">
-                        <h3>Hola este es mi portafolio</h3>
-                        <p> Te presento unas muestras de los conocimientos que he adquirido a lo largo de mi carrera </p>
-                    </div>
-                    <div class="col-12 col-lg-4 d-none d-lg-block" style="overflow: hidden;">
-                        <div class="container-fluid py-4 h-100 my-3 border-left" >
-                            <div class="row">
-                                <div class="col-4 ">
-                                    <label class="float-right"><strong>Correo</strong></label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="float-left">{{data.dtp.mail}}</label>
+                                <md-input-container md-no-float class="md-block" layout-padding  flex="30">
+                                    <input ng-model="user.address">
+                                    <md-icon  class="name fas fa-search">
+                                    </md-icon>
+                                </md-input-container>
+                            </div>
+                            <div layout="row" flex-wrap style="flex-wrap: wrap">
+                                <div flex="25" ng-repeat="(k,item) in data.projects">
+                                    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+                                        <md-card-title layout="column">
+                                            <md-card-title-media >
+                                                <div class="md-media-lg card-media" style="width: 100%;">
+                                                    <img ng-src="{{item.img}}" alt="{{item.title}}">
+                                                </div>
+                                            </md-card-title-media>
+                                            <md-card-title-text>
+                                                <span class="md-headline" title="{{item.title}}">{{item.title}}</span>
+                                                <div class="md-subhead" layout="row" flex-wrap>
+                                                    <div ng-repeat="cat in item.bases">
+                                                        <span>{{get_tool(cat).title}}</span>
+                                                        <span ng-if="!$last"> , </span>
+
+                                                    </div>
+                                                </div>
+                                            </md-card-title-text>
+
+                                        </md-card-title>
+                                        <md-card-actions layout="row" layout-align="end center">
+
+                                            <md-button title="Imagenes" class="md-fab md-mini md-primary" ng-click="showImagesDialog($event,item)" ng-show="item.gallery && item.gallery.length > 0">
+                                                <i class="fas fa-images m-auto"></i>
+                                            </md-button>
+                                            <md-button title="detalles" class="md-fab md-mini md-primary" ng-click="showPrerenderedDialog($event,item)">
+                                                <i class="fas fa-book-open m-auto"></i>
+                                            </md-button>
+                                            <a title="Pagina web"  class="md-button md-primary md-fab md-mini  " ng-href="{{item.link}}" target="_blank">
+                                                <i class="fas fa-globe-americas m-auto"></i>
+                                            </a>
+                                        </md-card-actions>
+                                    </md-card>
+
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-4 ">
-                                    <label class="float-right"><strong>Facebook</strong></label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="float-left"><a ng-href="{{data.dtp.facebook}}">{{nameLink(data.dtp.facebook)}}</a></label>
-                                </div>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="tab2" flex>
+                    <md-tab-label>Tecnologias</md-tab-label>
+                    <md-tab-body flex  >
+                        <div layout="column"  ng-controller="tecnologiesCtrl">
+                            <div  layout="row" layout-align="end center" >
+
+                                <md-input-container md-no-float class="md-block" layout-padding  flex="30">
+                                    <input ng-model="user.address">
+                                    <md-icon  class="name fas fa-search">
+                                    </md-icon>
+                                </md-input-container>
                             </div>
-                            <div class="row">
-                                <div class="col-4 ">
-                                    <label class="float-right"><strong>GitHub</strong></label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="float-left"><a ng-href="{{data.dtp.github}}">{{nameLink(data.dtp.github)}}</a></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4 ">
-                                    <label class="float-right"><strong>Portafolio</strong></label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="float-left"><a ng-href="{{data.dtp.book}}">{{nameLink(data.dtp.book)}}</a></label>
+                            <div layout="row" flex-wrap style="flex-wrap: wrap">
+                                <div flex="25" ng-repeat="(k,item) in data.tools">
+                                    <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+                                        <md-card-title layout="column">
+                                            <md-card-title-media >
+                                                <div class="md-media-lg card-media" style="width: 100%;">
+                                                    <img ng-src="{{item.img}}" alt="{{item.title}}">
+                                                </div>
+                                            </md-card-title-media>
+                                            <md-card-title-text>
+                                                <span class="md-headline" title="{{item.title}}">{{item.title}}</span>
+                                                <div class="md-subhead" layout="row" flex-wrap>
+                                                    <div ng-repeat="cat in item.cat">
+                                                        <span>{{cat}}</span>
+                                                        <span ng-if="!$last"> , </span>
+
+                                                    </div>
+                                                </div>
+                                            </md-card-title-text>
+
+                                        </md-card-title>
+                                        <md-card-actions layout="row" layout-align="end center">
+                                            <a title="Pagina web"  class="md-button md-primary md-fab md-mini  "  title="Pagina web" ng-href="{{item.link}}" target="_blank">
+                                                <i class="fas fa-globe-americas"></i>
+                                            </a>
+                                        </md-card-actions>
+                                    </md-card>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="row d-block d-lg-none">
-                    <div class="col-12">
-                        <h3>Proyectos</h3>
-                    </div>
-                </div>
-
-                <hr class="mb-1">
-                <div class="row my-2 px-3 justify-content-end">
-                    <div class="col-lg-6 col-12">
-                        <input type="text"  class="form-control form-control-sm text-center" style="border-radius: 14px;" placeholder="¿Buscar?" ng-model="project.search">
-                    </div>
-                </div>
-
-                <div id="projects" class="row mt-4 mt-lg-0"  >
-                    <div class="col-12">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-lg-3 projects-container" ng-repeat="item in data.projects | filter : project.search track by $index" >
-                                    <div class="project card">
-                                        <div class="card-header  img-container" title="{{item.title}}">
-                                            <img ng-src="{{item.img}}" class="img-fluid">
-                                        </div>
-                                        <div class="card-content container">
-                                            <div class="row justify-content-end thumbs">
-                                                <a ng-repeat="(key ,item ) in $parent.accion.tools.getAll(item.bases) | limitTo:3" class="col text-right py-2" ng-href="{{item.link}}">
-
-                                                    <img class="" ng-src="{{item.img}}" alt="{{item.title}}">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="row justify-content-between">
-                                                <a class="col" ng-if="item.github" ng-href="{{item.github}}"><span  class="btn btn-success"><i class="fab fa-github"></i></span></a>
-                                <span ng-if="item.gallery" class=" col text-center  " ng-click="$parent.$parent.accion.gallery(item)">
-                                    <i class="far fa-images"></i>
-                                </span>
-                                <span ng-if="item.descrip" class="btn col"  ng-click="$parent.$parent.accion.book(item)">
-                                    <i class="fas fa-book"></i>
-                                </span>
-                                            </div>
-                                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="tab3" >
+                    <md-tab-label>CV</md-tab-label>
+                    <md-tab-body flex >
+                        <div layout="column" ng-controller="ProfileCtrl" layout-padding >
+                            <div layout="row">
+                                <div layout="column" flex="30">
+                                    <img src="./assets/images/profile.jpg"  class="margin-auto">
+                                </div>
+                                <div flex layout="column" class="">
+                                    <div layout="row" layout-padding>
+                                        <div flex="25"><strong>Nombre:</strong></div>
+                                        <div>Miguel E. Quevedo H.</div>
+                                    </div>
+                                    <div layout="row" layout-padding>
+                                        <div flex="25"><strong>Edad:</strong></div>
+                                        <div>{{data.dtp.age}}</div>
+                                    </div>
+                                    <div layout="row" layout-padding>
+                                        <div flex="25"><strong>Direccion:</strong></div>
+                                        <div>{{data.dtp.address}}</div>
                                     </div>
 
+                                    <div layout="row" layout-padding>
+                                        <div flex="25"><strong>Telefono:</strong></div>
+                                        <div>{{data.dtp.phone}}</div>
+                                    </div>
+
+                                    <div layout="row" layout-padding >
+                                        <div flex="25"><strong>Correo:</strong></div>
+                                        <div>{{data.dtp.mail}}</div>
+                                    </div>
+
+                                    <div layout="row" class="icons" layout-padding>
+                                        <a ng-href="{{data.dtp.book}}" target="_blank" >
+                                            <i class="far fa-address-book"></i>
+                                        </a>
+                                        <a ng-href="{{data.dtp.git}}" target="_blank" >
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div layout="row" layout-align="center">
+                                <div class="title" >
+                                    <h3 >Estudios realizados</h3>
                                 </div>
                             </div>
+                            <div layout="column" ng-repeat="item in data.studies" layout-padding >
+                                <div layout="row" class="cv-item">
+                                    <div flex="30" layout="column">
+                                        <label>{{item.realized}}</label>
+                                        <label><strong>{{item.location}}</strong></label>
+                                    </div>
+                                    <div flex layout="column">
+                                        <label>{{item.agains}}</label>
+                                        <label>{{item.institute}}</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div layout="row" layout-align="center">
+                                <div class="title" >
+                                    <h3 >Experiencia laboral</h3>
+                                </div>
+                            </div>
+                            <div layout="column" ng-repeat="item in data.works" layout-padding >
+                                <div layout="row" class="cv-item">
+                                    <div flex="30" layout="column">
+                                        <label>{{item.realized}}</label>
+                                        <label><strong>{{item.location}}</strong></label>
+                                    </div>
+                                    <div flex layout="column">
+                                        <label>{{item.company}}</label>
+                                        <label>{{item.work}}</label>
+                                        <p>Tareas:{{item.task}}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div layout="row" layout-align="center">
+                                <div class="title" >
+                                    <h3 >Formaciones adicionales e intereses</h3>
+                                </div>
+                            </div>
+                            <div layout="column" ng-repeat="item in data.plus" layout-padding >
+                                <div layout="row" class="cv-item">
+                                    <div flex="30" layout="column">
+                                        <label>{{item.realized}}</label>
+                                        <label><strong>{{item.location}}</strong></label>
+                                    </div>
+                                    <div flex layout="column">
+                                        <label>{{item.agains}}</label>
+                                        <label>{{item.institute}}</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div layout="row" layout-align="center">
+                                <div class="title" >
+                                    <h3 >Lenguajes </h3>
+                                </div>
+                            </div>
+                            <div layout="row" layout-align="center" layout-wrap>
+                                <div ng-repeat="item in data.langs">
+                                    <span>{{item.title}}</span>
+                                    <span ng-if="!$last"> , </span>
+                                </div>
+
+                            </div>
+
+                            <div layout="row" layout-align="center">
+                                <div class="title" >
+                                    <h3 >Frameworks </h3>
+                                </div>
+                            </div>
+                            <div layout="row" layout-align="center" layout-wrap >
+                                <div ng-repeat="item in data.frameworks">
+                                    <span>{{item.title}}</span>
+                                    <span ng-if="!$last"> , </span>
+                                </div>
+
+                            </div>
+
+
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </md-tab-body>
+                </md-tab>
+
+            </md-tabs>
         </div>
     </div>
+
 </div>
 
-<div class="modal fade " role="dialog" id="galleryDialog" ng-controller="galleryCtrl" >
-    <div class="modal-dialog modal-lg" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row container">
-                    <div class="col-md-10">
-                        <h4 class="modal-title" >{{model.title}}</h4>
+<div ng-show="false">
+    <div class="md-dialog-container" id="myDialog">
+        <md-dialog  >
+            <div layout="column" id="project" ng-controller="projectCtrl">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>{{model.title}}</h2>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-            </div>
-
-            <div class="modal-body">
-
-
-                <div class="row" id="thumbnails">
-                    <div class="col-12" ng-repeat="img in model.gallery">
-                        <h5>{{img.title}}</h5>
-                        <img  src="{{img.img}}" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade " role="dialog" id="bookDialog" ng-controller="bookCtrl" >
-    <div class="modal-dialog modal-lg" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row container">
-                    <div class="col-md-10">
-                        <h4 class="modal-title" >{{model.title}}</h4>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-            </div>
-
-            <div class="modal-body container">
-                <h6>Ficha</h6>
-                <hr>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group row mb-1" >
-                            <label class=" col-3 text-right">Estatus:</label>
-                            <span class="col-9 text-left">{{model.status}}</span>
+                </md-toolbar>
+                <md-dialog-content  layout="column" layout-padding style="height:50vh;">
+                    <div layout="row">
+                        <div flex="50">
+                            <label>Fecha:</label><label>{{model.created}}</label>
+                        </div>
+                        <div flex>
+                            <label>Estado:</label><label>{{model.state}}</label>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group row mb-1" >
-                            <label class=" col-3 text-right">Fecha:</label>
-                            <span class="col-9 text-left">{{model.date}}</span>
+                    <div layout="row" ng-if="model.bases && model.bases.length > 0">
+                        <strong>Bases:</strong>
+                    </div>
+
+                    <div layout="row"  >
+                        <div ng-repeat="item in model.bases">
+                            <span>{{get_tool(item).title}}</span>
+                            <span ng-if="!$last"> , </span>
                         </div>
                     </div>
-                </div>
-                <h6 ng-if="model.descrip">Descripcion</h6>
-                <div class="row" ng-if="model.descrip">
-                    <div class="col-12">
-                        <p >{{model.descrip}}</p>
+
+                    <div layout="row" ng-if="model.tools && model.tools.length > 0">
+                        <strong>Tecnologias:</strong>
                     </div>
-                </div>
-                <hr>
-                <h6>
-                    Tecnologia
-                </h6>
-                <hr>
-                <div  class="container-fluid">
-                    <div class="row " >
-                        <div ng-repeat="item in model.libs" class="col-md-4 col-12 d-flex "  style="height: 48px;">
-                            <img ng-src="{{item.img}}" class="h-100" alt="{{item.title}}" title="{{item.cats}}">
-                            <span class="my-auto ml-0" title="{{item.cats}}">{{item.title}}</span>
+
+                    <div layout="row">
+                        <div ng-repeat="item in model.tools">
+                            <span>{{get_tool(item).title}}</span>
+                            <span ng-if="!$last"> , </span>
                         </div>
                     </div>
-                </div>
+
+                    <div layout="row" ng-if="model.description">
+                        <strong>Descripcion:</strong>
+                    </div>
+
+                    <div layout="row">
+                        <p>{{model.description}}</p>
+                    </div>
+                </md-dialog-content >
             </div>
-        </div>
+        </md-dialog>
+    </div>
+    <div class="md-dialog-container" id="imagesDialog" >
+        <md-dialog style="" flex>
+            <md-content layout="column" id="images" ng-controller="galleryCtrl" flex>
+
+                <md-dialog-content  layout="column" layout-padding flex>
+                    <md-content layout="row" flex>
+                        <md-content flex="70" style="text-align: center">
+                            <img ng-src="{{select.img}}" style="max-width: 100%; height: auto;">
+                        </md-content>
+                        <div flex layout="column">
+                            <div>Selecione</div>
+                            <md-content layout="column" >
+                                <div ng-repeat="item in model.gallery" ng-click="$parent.select = item">
+                                    <img lazy-image="item.img" alt="{{item.alt}}" style="max-width: 100%; height: auto; margin: 8px 0" >
+                                </div>
+
+                            </md-content>
+                        </div>
+                    </md-content>
+
+                </md-dialog-content >
+        </md-dialog>
     </div>
 </div>
-<div class="modal fade " role="dialog" id="tectDialog" ng-controller="tectCtrl" >
-    <div class="modal-dialog modal-lg" >
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="container d-inline-flex p-0">
-                    <div class="px-2">
-                        <img ng-src="{{model.img}}" class="img-fluid" style="height: 42px;">
-                    </div>
-                    <div class="">
-                        <h4 class="modal-title" >{{model.title}}</h4>
-                    </div>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-            </div>
+<div class="fixed-top w-100 h-100 d-flex" id="loader">
+    <div class="m-auto">
+        <div class="loader"></div>
+        <h3 class="text-center color-white"></h3>
 
-            <div class="modal-body container">
-                <div ng-include="template"></div>
-                <div class="row justify-content-end " ng-if="template != 'templates/tecnologia.html'">
-                    <div class="col-5"><button class="btn btn-info float-lg-right" ng-click="back()">Atras</button></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-<footer>
-    <script src="./js/app.js"></script>
-    <script src="./js/sidebar.js"></script>
-    <script src="./js/storage.js"></script>
-    <script src="./js/index.js"></script>
-
-</footer>
 </body>
 </html>
