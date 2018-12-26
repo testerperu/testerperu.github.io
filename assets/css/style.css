@@ -79,6 +79,15 @@ md-card-actions * {
     min-width: 100%;max-height:100vh;height:90%;
 }
 
+#menuBar md-toolbar {
+    display: flex;
+}
+#menuBar .links > *{
+    margin: 0 4px;
+}
+#menuBar h3{
+    margin: auto 0;
+}
 
 /*loader**/
 

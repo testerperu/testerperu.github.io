@@ -30,13 +30,23 @@
 <body ng-app="app" ng-cloak >
 <div layout="row" flex ng-controller="appCtrl">
     <div flex layout="column">
-        <md-toolbar md-scroll-shrink ng-if="true" ng-controller="menuBarCtrl">
-            <div class="md-toolbar-tools">
-
-
+        <md-toolbar md-scroll-shrink ng-if="true" ng-controller="menuBarCtrl" id="menuBar" ng-mouseenter="text = '' ">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between" ng-init="text = ''"  ng-mouseleave="text = '' ">
                 <h3>
                     <span>Bienvenido</span>
-                </h3>
+                </h3 >
+                <div flex-lg="60" ng-mouse-enter="text ='Hola'" layout="row" layout-align=" end center" layout-padding>
+                    <div flex layout="row" layout-align="end center" layout-padding>
+                        {{text}}
+                    </div>
+                    <div  layout="row" layout-align=" end center" class="links">
+                        <a ng-href="mailto:{{data.dtp.mail}}" ng-show="data.dtp.mail" ><div ng-mouseenter="text = data.dtp.mail "><i class="far fa-envelope"></i></div></a>
+                        <a ng-href="https://wa.me/{{data.dtp.phone}}" ng-show="data.dtp.phone"><div ng-mouseenter="text = data.dtp.phone "><i class="fas fa-phone"></i></div></a>
+                        <a ng-href="{{data.dtp.git}}" ng-show="data.dtp.git"><div ng-mouseenter="text = data.dtp.git "><i class="fab fa-github"></i></div></a>
+                        <a ng-href="{{data.dtp.book}}" ng-show="data.dtp.book"><div ng-mouseenter="text = data.dtp.git "><i class="fas fa-atlas"></i></div></a>
+                    </div>
+
+                </div>
             </div>
         </md-toolbar>
         <div  ng-controller="mainTabsCtrl" flex>
@@ -45,16 +55,8 @@
                     <md-tab-label>Proyectos</md-tab-label>
                     <md-tab-body flex>
                         <md-content flex ng-controller="projectsCtrl">
-                            <div  layout="row" layout-align="end center" >
-
-                                <md-input-container md-no-float class="md-block" layout-padding  flex="30">
-                                    <input ng-model="user.address">
-                                    <md-icon  class="name fas fa-search">
-                                    </md-icon>
-                                </md-input-container>
-                            </div>
-                            <div layout="row" flex-wrap style="flex-wrap: wrap">
-                                <div flex="25" ng-repeat="(k,item) in data.projects">
+                            <div layout="row" layout-wrap >
+                                <div flex="100" flex-lg="25" ng-repeat="(k,item) in data.projects" layout-wrap>
                                     <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
                                         <md-card-title layout="column">
                                             <md-card-title-media >
@@ -64,7 +66,7 @@
                                             </md-card-title-media>
                                             <md-card-title-text>
                                                 <span class="md-headline" title="{{item.title}}">{{item.title}}</span>
-                                                <div class="md-subhead" layout="row" flex-wrap>
+                                                <div class="md-subhead" layout="row" layout-wrap>
                                                     <div ng-repeat="cat in item.bases">
                                                         <span>{{get_tool(cat).title}}</span>
                                                         <span ng-if="!$last"> , </span>
@@ -97,16 +99,8 @@
                     <md-tab-label>Tecnologias</md-tab-label>
                     <md-tab-body flex  >
                         <div layout="column"  ng-controller="tecnologiesCtrl">
-                            <div  layout="row" layout-align="end center" >
-
-                                <md-input-container md-no-float class="md-block" layout-padding  flex="30">
-                                    <input ng-model="user.address">
-                                    <md-icon  class="name fas fa-search">
-                                    </md-icon>
-                                </md-input-container>
-                            </div>
-                            <div layout="row" flex-wrap style="flex-wrap: wrap">
-                                <div flex="25" ng-repeat="(k,item) in data.tools">
+                            <div layout="row" layout-wrap >
+                                <div flex="100" flex-lg="25" ng-repeat="(k,item) in data.tools">
                                     <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
                                         <md-card-title layout="column">
                                             <md-card-title-media >
@@ -116,7 +110,7 @@
                                             </md-card-title-media>
                                             <md-card-title-text>
                                                 <span class="md-headline" title="{{item.title}}">{{item.title}}</span>
-                                                <div class="md-subhead" layout="row" flex-wrap>
+                                                <div class="md-subhead" layout="row" layout-wrap>
                                                     <div ng-repeat="cat in item.cat">
                                                         <span>{{cat}}</span>
                                                         <span ng-if="!$last"> , </span>
@@ -141,11 +135,11 @@
                     <md-tab-label>CV</md-tab-label>
                     <md-tab-body flex >
                         <div layout="column" ng-controller="ProfileCtrl" layout-padding >
-                            <div layout="row">
-                                <div layout="column" flex="30">
+                            <div layout="row" layout-wrap="">
+                                <div layout="column" flex="100" flex-lg="30">
                                     <img src="./assets/images/profile.jpg"  class="margin-auto">
                                 </div>
-                                <div flex layout="column" class="">
+                                <div flex="100" flex-lg="" layout="column" class="">
                                     <div layout="row" layout-padding>
                                         <div flex="25"><strong>Nombre:</strong></div>
                                         <div>Miguel E. Quevedo H.</div>
